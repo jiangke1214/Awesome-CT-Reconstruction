@@ -228,7 +228,7 @@ main.drawer-panel #fab{opacity:0;visibility:hidden}
       <button class="btn chip" id="tgLib" data-en="◧ Library">◧ 家具库</button>
       <button class="btn chip" id="tgPanel" data-en="Properties ◨">属性 ◨</button>
     </div>
-    <div class="brand"><b data-en="3BR 2LR 2BA · Interior Design">第二张布局 + 第三张尺寸 · 户型定制版</b><span id="subtitle">尺寸链：上边10,270 / 下边11,850 / 纵深10,560 mm</span></div>
+    <div class="brand"><b data-en="3BR 2LR 2BA · Interior Design">第二张布局 + 第三张尺寸 · 户型定制版</b><span id="subtitle">尺寸链：横向17,800 / 纵向13,300 mm</span></div>
     <div class="grp seg" id="viewSeg" title="切换 2D / 3D (T)" data-en-title="Switch 2D / 3D (T)">
       <span class="pill"></span>
       <button class="btn" data-view="2d" data-en="2D Plan">2D 平面</button>
@@ -450,22 +450,6 @@ const ROOMS=[
 ];
 
 
-// 尺寸链修正：上边 10270 mm、下边 11850 mm、纵向 10560 mm。
-// 将旧草模的坐标整体映射到正确外包络；内部分隔比例仍以黑白图为准，非标注尺寸待复尺。
-const SCALE_X = 11850 / 18040, SCALE_Y = 10560 / 13040;
-WALLS.forEach(w => { w[0]=Math.round(w[0]*SCALE_X); w[1]=Math.round(w[1]*SCALE_Y); w[2]=Math.round(w[2]*SCALE_X); w[3]=Math.round(w[3]*SCALE_Y); });
-WINS.forEach(w => { w[0]=Math.round(w[0]*SCALE_X); w[1]=Math.round(w[1]*SCALE_Y); w[2]=Math.round(w[2]*SCALE_X); w[3]=Math.round(w[3]*SCALE_Y); });
-DOORS.forEach(d => {
-  d.rect=[Math.round(d.rect[0]*SCALE_X),Math.round(d.rect[1]*SCALE_Y),Math.round(d.rect[2]*SCALE_X),Math.round(d.rect[3]*SCALE_Y)];
-  d.h=[Math.round(d.h[0]*SCALE_X),Math.round(d.h[1]*SCALE_Y)];
-  d.len=Math.round(d.len*(Math.abs(d.rect[2]-d.rect[0]) < Math.abs(d.rect[3]-d.rect[1]) ? SCALE_Y : SCALE_X));
-});
-SLIDES.forEach(d => { d.rect=[Math.round(d.rect[0]*SCALE_X),Math.round(d.rect[1]*SCALE_Y),Math.round(d.rect[2]*SCALE_X),Math.round(d.rect[3]*SCALE_Y)]; });
-ROOMS.forEach(r => {
-  r.poly=r.poly.map(([x,y])=>[Math.round(x*SCALE_X),Math.round(y*SCALE_Y)]);
-  if(r.at) r.at=[Math.round(r.at[0]*SCALE_X),Math.round(r.at[1]*SCALE_Y)];
-});
-
 const MATS = {
   wood:{name:'卧室木地板',price:320,sw:'#d8b88a'},
   walnut:{name:'胡桃木地板',price:380,sw:'#9b7250'},
@@ -539,14 +523,14 @@ function defaultFurniture(){ return [
   F('wardrobe','衣柜',16000,8600,1800,600,90),
   F('nightstand','床头柜',13500,9500,450,400),F('nightstand','床头柜',15800,9500,450,400),
   F('shoecab','玄关柜',17100,5200,1000,350,90),
-].map(f=>({...f,cx:Math.round(f.cx*SCALE_X),cy:Math.round(f.cy*SCALE_Y),w:Math.round(f.w*SCALE_X),d:Math.round(f.d*SCALE_Y)}));}
+ ];}
 
 function defaultState(){
   const rooms = {}; ROOMS.forEach(r => rooms[r.id] = {name:r.name, mat:r.mat});
   return {furniture:defaultFurniture(), rooms, demolished:[], measures:[]};
 }
 
-const STORE = 'huxing-design-dimensioned-20261106-v3';
+const STORE = 'huxing-design-dimensioned-20261106-v4';
 function load(){
   try { const s = JSON.parse(localStorage.getItem(STORE)); if (s && Array.isArray(s.furniture)) return fixState(s); } catch(e) {}
   return null;
@@ -562,7 +546,7 @@ const PX_MM = 25.4 / 96;                       // 1 CSS px = 0.2646 mm
 const COARSE = matchMedia('(pointer:coarse)').matches;   // iPad / 手机等触屏为主的设备
 const TAP = COARSE ? 9 : 4;                    // 手指按下后移动超过该像素才算拖动
 const narrow = () => matchMedia('(max-width:1100px)').matches;
-const BOUNDS = {x:-400, y:-400, w:12650, h:11350};
+const BOUNDS = {x:-500, y:-500, w:18800, h:14000};
 const $ = s => document.querySelector(s);
 const svg = $('#plan');
 
