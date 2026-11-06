@@ -539,14 +539,14 @@ function defaultFurniture(){ return [
   F('wardrobe','衣柜',16000,8600,1800,600,90),
   F('nightstand','床头柜',13500,9500,450,400),F('nightstand','床头柜',15800,9500,450,400),
   F('shoecab','玄关柜',17100,5200,1000,350,90),
-];}
+].map(f=>({...f,cx:Math.round(f.cx*SCALE_X),cy:Math.round(f.cy*SCALE_Y),w:Math.round(f.w*SCALE_X),d:Math.round(f.d*SCALE_Y)}));}
 
 function defaultState(){
   const rooms = {}; ROOMS.forEach(r => rooms[r.id] = {name:r.name, mat:r.mat});
   return {furniture:defaultFurniture(), rooms, demolished:[], measures:[]};
 }
 
-const STORE = 'huxing-design-dimensioned-20261106-v2';
+const STORE = 'huxing-design-dimensioned-20261106-v3';
 function load(){
   try { const s = JSON.parse(localStorage.getItem(STORE)); if (s && Array.isArray(s.furniture)) return fixState(s); } catch(e) {}
   return null;
