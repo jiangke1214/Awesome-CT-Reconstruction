@@ -449,6 +449,23 @@ const ROOMS=[
   {id:'balcony',name:'设备阳台',poly:R(15000,0,17800,1200),mat:'antislip',at:[16400,700]},
 ];
 
+
+// 尺寸链修正：上边 10270 mm、下边 11850 mm、纵向 10560 mm。
+// 将旧草模的坐标整体映射到正确外包络；内部分隔比例仍以黑白图为准，非标注尺寸待复尺。
+const SCALE_X = 11850 / 18040, SCALE_Y = 10560 / 13040;
+WALLS.forEach(w => { w[0]=Math.round(w[0]*SCALE_X); w[1]=Math.round(w[1]*SCALE_Y); w[2]=Math.round(w[2]*SCALE_X); w[3]=Math.round(w[3]*SCALE_Y); });
+WINS.forEach(w => { w[0]=Math.round(w[0]*SCALE_X); w[1]=Math.round(w[1]*SCALE_Y); w[2]=Math.round(w[2]*SCALE_X); w[3]=Math.round(w[3]*SCALE_Y); });
+DOORS.forEach(d => {
+  d.rect=[Math.round(d.rect[0]*SCALE_X),Math.round(d.rect[1]*SCALE_Y),Math.round(d.rect[2]*SCALE_X),Math.round(d.rect[3]*SCALE_Y)];
+  d.h=[Math.round(d.h[0]*SCALE_X),Math.round(d.h[1]*SCALE_Y)];
+  d.len=Math.round(d.len*(Math.abs(d.rect[2]-d.rect[0]) < Math.abs(d.rect[3]-d.rect[1]) ? SCALE_Y : SCALE_X));
+});
+SLIDES.forEach(d => { d.rect=[Math.round(d.rect[0]*SCALE_X),Math.round(d.rect[1]*SCALE_Y),Math.round(d.rect[2]*SCALE_X),Math.round(d.rect[3]*SCALE_Y)]; });
+ROOMS.forEach(r => {
+  r.poly=r.poly.map(([x,y])=>[Math.round(x*SCALE_X),Math.round(y*SCALE_Y)]);
+  if(r.at) r.at=[Math.round(r.at[0]*SCALE_X),Math.round(r.at[1]*SCALE_Y)];
+});
+
 const MATS = {
   wood:{name:'卧室木地板',price:320,sw:'#d8b88a'},
   walnut:{name:'胡桃木地板',price:380,sw:'#9b7250'},
@@ -545,7 +562,7 @@ const PX_MM = 25.4 / 96;                       // 1 CSS px = 0.2646 mm
 const COARSE = matchMedia('(pointer:coarse)').matches;   // iPad / 手机等触屏为主的设备
 const TAP = COARSE ? 9 : 4;                    // 手指按下后移动超过该像素才算拖动
 const narrow = () => matchMedia('(max-width:1100px)').matches;
-const BOUNDS = {x:-500, y:-500, w:18800, h:14000};
+const BOUNDS = {x:-400, y:-400, w:12650, h:11350};
 const $ = s => document.querySelector(s);
 const svg = $('#plan');
 
@@ -856,7 +873,7 @@ function renderAll(){
 
 function updateHeader(){
   const tot = ROOMS.filter(r => r.counted !== false).reduce((a,r) => a + area(r.poly), 0);
-  $('#subtitle').textContent = tr(`房间轴线面积合计 ${fmt(tot)} m² · 尺寸单位 mm · 墙厚待复核`, `Room axis area ${fmt(tot)} m² · Units: mm · Wall thickness to verify`);
+  $('#subtitle').textContent = tr(`房间面积按当前尺寸模型估算 ${fmt(tot)} m² · 墙厚待复核`, `Room axis area ${fmt(tot)} m² · Units: mm · Wall thickness to verify`);
   $('#undo').disabled = !undoStack.length; $('#redo').disabled = !redoStack.length;
   $('#undo').style.opacity = undoStack.length ? 1 : .4; $('#redo').style.opacity = redoStack.length ? 1 : .4;
 }
