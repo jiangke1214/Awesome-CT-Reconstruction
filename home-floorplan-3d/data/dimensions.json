@@ -1,0 +1,26 @@
+{
+  "units": "mm",
+  "source_priority": {
+    "layout": "用户提供的第二张黑白户型图",
+    "dimensions": "用户提供的第三张尺寸标注图"
+  },
+  "overall_dimension_chains": {
+    "top_horizontal": [1580, 240, 2760, 240, 1540, 240, 3670],
+    "top_horizontal_total": 10270,
+    "bottom_horizontal": [2180, 240, 2160, 240, 5450, 240, 1340],
+    "bottom_horizontal_total": 11850,
+    "left_vertical": [3370, 1580, 240, 2770, 240, 2360],
+    "left_vertical_total": 10560,
+    "right_vertical": [3370, 240, 2760, 240, 3950],
+    "right_vertical_total": 10560
+  },
+  "validation": {
+    "status": "dimension_chains_recorded_geometry_not_yet_traced",
+    "notes": [
+      "Do not scale the plan as a single rectangle.",
+      "Top and bottom horizontal totals differ because the perimeter is not rectangular.",
+      "Room polygons, structural wall centerlines, door/window openings and net room areas must be traced against the black-and-white plan and aligned to these dimension chains.",
+      "Do not treat estimates as construction dimensions."
+    ]
+  }
+}
