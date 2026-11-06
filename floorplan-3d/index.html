@@ -434,18 +434,19 @@ const SLIDES=[
   {rect:[9600,2500,9840,3400],v:true},
 ];
 const ROOMS=[
+  // 房间面积按轴线尺寸计算；墙厚另由 WALLS 表示，避免房间标签再次套用旧图面积
   {id:'bed_nw',name:'左上卧室',poly:R(800,1200,4000,4900),mat:'wood',at:[2400,3000]},
-  {id:'kitchen',name:'厨房',poly:R(4000,240,9600,4900),mat:'tile600',at:[6800,2200]},
+  {id:'kitchen',name:'厨房',poly:R(4000,0,9600,4900),mat:'tile600',at:[6800,2200]},
   {id:'bed_ne',name:'右上卧室',poly:R(9600,1200,12800,4900),mat:'wood',at:[11200,3000]},
-  {id:'bath_w',name:'左侧卫生间',poly:R(240,5140,4000,7300),mat:'antislip',at:[2200,6200]},
-  {id:'dining',name:'餐厅',poly:R(4240,5140,11000,7300),mat:'tile800',at:[7600,6200]},
-  {id:'bath_e',name:'右侧卫生间',poly:R(13140,5140,16400,7300),mat:'antislip',at:[14700,6200]},
-  {id:'bed_sw',name:'左下卧室',poly:R(240,7540,4000,12800),mat:'wood',at:[2100,10100]},
-  {id:'living',name:'客厅',poly:R(4240,7540,11000,12800),mat:'tile800',at:[7600,10000]},
-  {id:'utility',name:'家政/过道预留区',poly:R(11240,7540,12900,12800),mat:'antislip',at:[12000,10200]},
-  {id:'bed_se',name:'右下卧室',poly:R(13140,8350,16400,12800),mat:'wood',at:[14700,10500]},
-  {id:'stair',name:'楼梯及入户区',poly:R(16640,4500,17800,8350),mat:'tile600',at:[17200,6400]},
-  {id:'balcony',name:'设备阳台',poly:R(15000,240,17800,1200),mat:'antislip',at:[16400,700]},
+  {id:'bath_w',name:'左侧卫生间',poly:R(0,4900,4000,7300),mat:'antislip',at:[2200,6200]},
+  {id:'dining',name:'餐厅',poly:R(4000,4900,11000,7300),mat:'tile800',at:[7600,6200]},
+  {id:'bath_e',name:'右侧卫生间',poly:R(12900,4900,16400,7300),mat:'antislip',at:[14700,6200]},
+  {id:'bed_sw',name:'左下卧室',poly:R(0,7300,4000,12800),mat:'wood',at:[2100,10100]},
+  {id:'living',name:'客厅',poly:R(4000,7300,11000,12800),mat:'tile800',at:[7600,10000]},
+  {id:'utility',name:'家政/过道预留区',poly:R(11000,7300,12900,12800),mat:'antislip',at:[12000,10200]},
+  {id:'bed_se',name:'右下卧室',poly:R(12900,8350,16400,12800),mat:'wood',at:[14700,10500]},
+  {id:'stair',name:'楼梯及入户区',poly:R(16400,4500,17800,8350),mat:'tile600',at:[17200,6400]},
+  {id:'balcony',name:'设备阳台',poly:R(15000,0,17800,1200),mat:'antislip',at:[16400,700]},
 ];
 
 const MATS = {
