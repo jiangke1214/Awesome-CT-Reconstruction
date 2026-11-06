@@ -228,7 +228,7 @@ main.drawer-panel #fab{opacity:0;visibility:hidden}
       <button class="btn chip" id="tgLib" data-en="◧ Library">◧ 家具库</button>
       <button class="btn chip" id="tgPanel" data-en="Properties ◨">属性 ◨</button>
     </div>
-    <div class="brand"><b data-en="3BR 2LR 2BA · Interior Design">四室两厅多卫 · 198㎡户型定制</b><span id="subtitle">外围尺寸 17,800 × 13,500 mm · 内部隔墙按图估算</span></div>
+    <div class="brand"><b data-en="3BR 2LR 2BA · Interior Design">第二张布局 + 第三张尺寸 · 户型定制版</b><span id="subtitle">外围尺寸链 17,800 × 13,300 mm · 单位 mm</span></div>
     <div class="grp seg" id="viewSeg" title="切换 2D / 3D (T)" data-en-title="Switch 2D / 3D (T)">
       <span class="pill"></span>
       <button class="btn" data-view="2d" data-en="2D Plan">2D 平面</button>
@@ -855,7 +855,7 @@ function renderAll(){
 
 function updateHeader(){
   const tot = ROOMS.filter(r => r.counted !== false).reduce((a,r) => a + area(r.poly), 0);
-  $('#subtitle').textContent = tr(`套内使用面积约 ${fmt(tot)} m² · 尺寸单位 mm · 原图比例 1:60`, `Net floor area ≈ ${fmt(tot)} m² · Units: mm · Original scale 1:60`);
+  $('#subtitle').textContent = tr(`房间轴线面积合计 ${fmt(tot)} m² · 尺寸单位 mm · 墙厚待复核`, `Room axis area ${fmt(tot)} m² · Units: mm · Wall thickness to verify`);
   $('#undo').disabled = !undoStack.length; $('#redo').disabled = !redoStack.length;
   $('#undo').style.opacity = undoStack.length ? 1 : .4; $('#redo').style.opacity = redoStack.length ? 1 : .4;
 }
